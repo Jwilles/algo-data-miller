@@ -1,18 +1,52 @@
 
-f = open('SCC.txt', 'r')
-line_list = f.read().split(' \n')
+#f = open('SCC.txt', 'r')
+#line_list = f.read().split(' \n')
 #list_master = {int(line.split()[0]): [int(val) for val in line.split()[1:] if val] for line in line_list if line}
+#print line_list[-1]
+# last vertex = 875714
+explored_vertices = []
+
+def dfs(graph, start):
+
+  explored_vertices.append(start)
+ 
+  for edge in graph[start]:
+    if edge not in  explored_vertices:
+      dfs(graph, edge) 
+  finishing_time[edge] = t
+  t += 1  
+
+def dfs_loop(graph):
+
+  t = 0
+  s = 0
+  finishing_time = {}
+  vertex_num = 875714
+  
+  #explored_vertices = []
+
+  for vertex in range(vertex_num, 0, -1):
+    if vertex not in explored_vertices: 
+      dfs(graph, vertex)
+  print finishing_time
 
 def main():
-  
+
+  f = open('SCC.txt', 'r')
+  line_list = f.read().split(' \n')
+  del line_list[-1]
+
   print line_list[0:10]
+
   graph = {}
   graph_rev = {}
+
+
   for line in line_list:
     if line:
       split_line = line.split()
-      vertex = split_line[0]
-      edge = split_line[1]
+      vertex = int(split_line[0])
+      edge = int(split_line[1])
       if vertex in graph:
         graph[vertex].append(edge)
       else:
@@ -22,8 +56,11 @@ def main():
       else:
         graph_rev[edge] = [vertex]
 
-  print graph['1']
-  print graph_rev['1']
+
+  print graph[17365]
+  print graph_rev[1]
+
+  dfs_loop(graph)
       
     
   
