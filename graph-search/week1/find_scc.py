@@ -1,3 +1,7 @@
+from resource import setrlimit
+from sys import setrecursionlimit
+setrecursionlimit(4000000)
+#setrlimit(resource.RLIMIT_STACK, (10**10, 10**10))
 
 #f = open('SCC.txt', 'r')
 #line_list = f.read().split(' \n')
@@ -5,22 +9,23 @@
 #print line_list[-1]
 # last vertex = 875714
 explored_vertices = []
+t = 1
+finishing_time = {}
 
 def dfs(graph, start):
-
+  global t
   explored_vertices.append(start)
  
-  for edge in graph[start]:
-    if edge not in  explored_vertices:
-      dfs(graph, edge) 
-  finishing_time[edge] = t
-  t += 1  
+  if start in graph:
+    for edge in graph[start]:
+      if edge not in  explored_vertices:
+        dfs(graph, edge) 
+
+  finishing_time[start] = t
+  t = t + 1
 
 def dfs_loop(graph):
-
-  t = 0
   s = 0
-  finishing_time = {}
   vertex_num = 875714
   
   #explored_vertices = []
@@ -41,7 +46,7 @@ def main():
   graph = {}
   graph_rev = {}
 
-
+  t = 0
   for line in line_list:
     if line:
       split_line = line.split()
