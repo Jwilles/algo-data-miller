@@ -35,10 +35,11 @@ def dijkstra(graph):
   shortest_paths[source_vertex] = 0
 
   vertices = set(range(1,201))
+  #vertices = set(range(1,8))
 
 
   while vertices != set(processed_vertices):
-
+   
     djk_criterion = {}
 
     for tail in processed_vertices:
@@ -46,27 +47,33 @@ def dijkstra(graph):
         if head not in processed_vertices:
           djk_criterion[head] = shortest_paths[tail] + graph[tail][head]
   
-#    print djk_criterion
+    print djk_criterion
     min_criterion = min(djk_criterion.items(), key=lambda x: x[1])     
-#    print min_criterion
+    print min_criterion
     processed_vertices.append(min_criterion[0])
     shortest_paths[min_criterion[0]] = min_criterion[1]   
+#    print processed_vertices
     
-
+  
   return shortest_paths
 
 def main():
 
   graph_filename = 'dijkstra_data.txt'
+#  graph_filename = 'test_djk.txt'
   graph = process_graph(graph_filename)
 
   goal_distances = [7,37,59,82,99,115,133,165,188,197]
+#  goal_distances = [1,2,3,4,5,6,7,8]
 
   
   shortest_paths = dijkstra(graph)
+  print shortest_paths
  
   for i in range(0, len(goal_distances)):
+    #print goal_distances[i]
     print shortest_paths[goal_distances[i]]
+    #print '-'*50
 
 if __name__ == '__main__':
   main()
