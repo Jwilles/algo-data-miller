@@ -9,14 +9,14 @@ def process_text(filename):
 
 
 def cost(event):
-  cost = event[0] / float(event[1])
+  cost = event[0]/event[1]
   return cost
 
 def compare(event_a, event_b):
   cost_a = cost(event_a)
   cost_b = cost(event_b)
 
-  if cost_a > cost_b:
+  if cost_a < cost_b:
     return -1
   else:
     return 1
@@ -25,13 +25,11 @@ def compare(event_a, event_b):
 def main():
 
   filename = 'jobs.txt'
-#  filename = 'jobs_test_2.txt'
-
   event_list = process_text(filename)
   
   event_list.sort(compare)
 
-  print event_list
+#  print event_list
 
   i = 0
   completion_sum = 0

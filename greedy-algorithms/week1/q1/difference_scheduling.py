@@ -21,7 +21,7 @@ def compare(event_a, event_b):
       return 1
     else:
       return -1
-  elif cost_a < cost_b:
+  elif cost_a > cost_b:
     return -1
   else:
     return 1
@@ -30,6 +30,8 @@ def compare(event_a, event_b):
 def main():
 
   filename = 'jobs.txt'
+#  filename = 'jobs_test.txt'
+#  filename = 'jobs_test_2.txt' 
   event_list = process_text(filename)
   
   event_list.sort(compare)
