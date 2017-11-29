@@ -18,47 +18,38 @@ def process_text(filename):
 
 def main():
 
-  filename = 'g1.txt'
+  filename = 'g3.txt'
   G_info, G, edges = process_text(filename)
   n = G_info[0]
 
-  A = np.full((n,n), 1000000000, dtype='uint64')
-
-#  print edges
-
-  print 'f1'
+  A = [[100000000000000000 for x in range(n)] for y in range(n)]
 
   for i in range(n):
-    A[i, i] = 0
+    A[i][i] = 0
 
-  print 'f2'
 
   for edge in edges:
-    A[edge[0], edge[1]] = edge[2]
-
-  print 'f3'
+    A[edge[0]][edge[1]] = edge[2]
 
   for k in range(n):
     print k
     for i in range(n):
       for j in range(n):
-        if A[i,j] > A[i,k] + A[k,j]:
-          print A[i,k] + A[k,j]
-          A[i,j] = A[i,k] + A[k,j]
+        if A[i][j] > A[i][k] + A[k][j]:
+          A[i][j] = A[i][k] + A[k][j]
 
-  print 'f4'
+  for i in range(n):
+    if A[i][i] < 0:
+      print 'neg_cycle'
 
-  print A(n-1, n-1) 
-#  A = np.zeros((n,n,n))
-#
-#  for k in range(n):
-#    for i in range(n):
-#      for j in range(n):
-#        A[i,j,k] = min(A[i,j,k-1], (A[i,k,k-1] + A[k,j,k-1]))
-#  print A
-  
-#  print G_info
-#  print G[1]
+  min_path = 100000000000000000
+
+  for i in range(n):
+    for j in range(n):
+      if A[i][j] < min_path:
+        min_path = A[i][j]
+
+  print min_path
 
 
 if __name__ == '__main__':
