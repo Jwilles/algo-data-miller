@@ -8,13 +8,20 @@ def process_text(filename):
   return graph_info, points
 
 
+def create_graph(points):
+
+  for point in points:
+    print point
+
+
 def main():
 
   filename = 'tsp.txt'
   G_info, points = process_text(filename)
  
   print G_info
-  print points 
+
+  create_graph(points)
 
 
 
