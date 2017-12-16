@@ -7,11 +7,32 @@ def process_text(filename):
 
   return graph_info, points
 
-
+def calc_euclid_distance(x, y):
+  return ((x[0]-y[0])**2 + (x[1]+y[1])**2)**(1/2)
+  
 def create_graph(points):
 
-  for point in points:
-    print point
+  graph = []  
+
+  for origin_idx, origin in enumerate(points):
+    graph.append([])
+    for destination_idx, destination in enumerate(points):
+      if origin != destination:
+        graph[origin_idx].append([ destination_idx, calc_euclid_distance(origin, destination)])
+        
+  return graph
+
+def calc_opt_path(graph):
+
+  A = []
+  
+  min_cost = 0;
+
+  
+
+
+  return min_cost 
+
 
 
 def main():
@@ -21,7 +42,11 @@ def main():
  
   print G_info
 
-  create_graph(points)
+  graph = create_graph(points)
+
+  min_cost = calc_opt_path(graph)
+
+  print graph[0]
 
 
 
