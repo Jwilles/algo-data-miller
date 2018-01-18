@@ -1,4 +1,5 @@
 import heapq
+import math
 
 def process_text(filename):
   
@@ -17,11 +18,52 @@ def calc_squared_euclid_distance(a, b):
   squared_euclid_distance = (a[0]-b[0])**2 + (a[1]-b[1])**2
   return squared_euclid_distance
 
-def generate_tsp_path(nodes, graph):
-  print nodes
-  print calc_squared_euclid_distance(graph[1], graph[2])
-  return 0
+def calc_euclid_distance(a, b):
+  euclid_distance = math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
+  return euclid_distance
+
+
+def find_min(curr, remaining, graph):
+  min_distance = 10000000000000000000000
+  min_key = 5000000000
+  for key in remaining:
+    if (key != curr):
+      distance = calc_squared_euclid_distance(graph[curr], graph[key])
+      if (distance < min_distance):
+	min_distance = distance
+        min_key = key
+      elif (distance == min_distance and key < min_key):
+	min_distance = min_distance
+	min_key = key
+
+  return min_key
+
+def calc_path_sum 
   
+    
+def generate_tsp_path(nodes, graph):
+
+  path = []
+  node_set = set(range(1, nodes+1))
+  remaining_set = set(range(1, nodes+1))
+ 
+  remaining_set.remove(1)
+  visited_set = set([1])
+  
+  current_node = 1
+
+  while (len(remaining_set) > 0):
+    min_key = find_min(current_node, remaining_set, graph)
+    path.append(min_key)
+    visited_set.add(min_key)
+    remaining_set.remove(min_key)
+
+    current_node = min_key
+
+  path.append(1)
+    
+  print path
+  return 0 
 
 def main():
 
