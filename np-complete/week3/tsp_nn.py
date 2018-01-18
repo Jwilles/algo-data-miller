@@ -38,7 +38,13 @@ def find_min(curr, remaining, graph):
 
   return min_key
 
-def calc_path_sum 
+def calc_path_sum(path, graph):
+  path_sum = 0
+  for i in range(1, len(path)):
+    step = calc_euclid_distance(graph[path[i-1]], graph[path[i]])
+    path_sum = path_sum + step
+
+  return path_sum
   
     
 def generate_tsp_path(nodes, graph):
@@ -51,6 +57,7 @@ def generate_tsp_path(nodes, graph):
   visited_set = set([1])
   
   current_node = 1
+  path.append(1)
 
   while (len(remaining_set) > 0):
     min_key = find_min(current_node, remaining_set, graph)
@@ -61,15 +68,16 @@ def generate_tsp_path(nodes, graph):
     current_node = min_key
 
   path.append(1)
-    
-  print path
-  return 0 
+
+  return calc_path_sum(path, graph)
 
 def main():
 
   filename = 'nn.txt'
   G_info, G = process_text(filename)
-  tsp_path = generate_tsp_path(G_info, G)
+  tsp_path_sum = generate_tsp_path(G_info, G)
+
+  print tsp_path_sum
 
 if __name__ == '__main__':
   main()
