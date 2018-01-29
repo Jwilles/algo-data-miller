@@ -47,7 +47,7 @@ def random_assignment(node_hash):
 
   return node_hash
 
-def is_satisfiability(clauses):
+def is_satisfiable(clauses):
   
   node_hash = {}
 
@@ -59,23 +59,56 @@ def is_satisfiability(clauses):
 
   print n
   print node_hash
+  
+  satisfied = False
 
   for i in range(0, int(math.log(n, 2))):
     solution = random_assignment(node_hash)
     for k in range(0, 2*n*n):
-      check_computabilty 
-      ## check computability here
-      for clause in clauses:
-        
-      
-  return True
+      satisfied, failed_clause = check_satisfiability(solution, clauses)
+      if (satisfied == False):
+        solution = flip_clause(solution, failed_clause)
+      elif (satisfied == True):
+        return satisfied
 
-def compute_satisfiability(solution, clauses):
+  return satisfied 
+        
+
+def check_satisfiability(solution, clauses):
+ 
+  total_sat = True
+  failed_clause = ()
+
+  for clause in clauses:
+    clause_sat = False
+    for element in clause:
+      sol = solution[abs(element)]
+      if (element < 0 and sol == False):
+        clause_sat = True 
+      elif (element > 0 and sol == True):
+        clause_sat = True
+    if (clause_sat == False):
+      total_sat = False
+      failed_clause = clause
+      break
+
+  return total_sat, failed_clause
+
+def flip_clause(solution, failed_clause):
+
+  rand_num = random()
+  if rand_num < 0.5:
+    solution[abs(failed_clause[0])] = not solution[abs(failed_clause[0])]
+  else:  
+    solution[abs(failed_clause[1])] = not solution[abs(failed_clause[1])]
+
+  return solution
+    
 
 
 def main():
 
-  filename = '2sat1.txt'
+  filename = '2sat6.txt'
   S_info, clauses = process_text(filename)
 
   num_clauses = S_info + 1
@@ -89,7 +122,9 @@ def main():
   print len(clauses)
   print clauses
 
-  satisfied = check_satisfiability(clauses)
+  satisfied = is_satisfiable(clauses)
+
+  print satisfied
 
 if __name__ == '__main__':
   main()
